@@ -24,7 +24,9 @@ FreeType = {
 		
 		local apply = function(option, settings)
 			if option.use_ftconfig == true then
-				settings.cc.flags:Add("`freetype-config --cflags`")
+				-- XXX: Temporary hack for FreeType > 2.5.1
+				--settings.cc.flags:Add("`freetype-config --cflags`")
+				settings.cc.flags:Add("pkg-config freetype2 --cflags`")
 				settings.link.flags:Add("`freetype-config --libs`")
 			elseif option.use_winlib > 0 then
 				settings.cc.includes:Add(FreeType.basepath .. "/include")
